@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* 🎨 CSS 区域 - 控制所有视觉效果 */
+        body {
+            background: #f0f0f0; /* 背景色 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* 占满整个屏幕高度 */
+            font-family: Arial;
+        }
+        
+        .magic-box {
+            background: white;
+            padding: 40px;
+            border-radius: 20px; /* 圆角 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* 阴影 */
+            text-align: center;
+            /* 试试取消下面这行的注释，看有什么变化 */
+            /* transform: rotate(5deg); */
+        }
+        
+        .big-button {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        
+        /* 🎭 当鼠标悬停在按钮上时的效果 */
+        .big-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- 📦 HTML 区域 - 页面结构 -->
+    <div class="magic-box">
+        <h1>我的魔法跳转页 ✨</h1>
+        <p>这是一个可以随心所欲修改的页面</p>
+        
+        <!-- 这个按钮就是你跳转的核心 -->
+        <button class="big-button" onclick="redirectToDrive()">
+            前往 Google Drive
+        </button>
+        
+        <p style="margin-top: 20px; color: #666; font-size: 14px;">
+            <i>试试把鼠标移到按钮上！</i>
+        </p>
+    </div>
+    
+    <!-- ⚡ JavaScript 区域 - 添加行为 -->
+    <script>
+        function redirectToDrive() {
+            // 这就是跳转的"魔法咒语"
+            window.location.href = 'https://drive.google.com/your-link-here';
+            
+            // 💡 打开F12控制台，看看点击时这里会打印什么
+            console.log('按钮被点击了！正在跳转到Google Drive...');
+        }
+        
+        // 页面加载完时在控制台打招呼
+        console.log('🎉 魔法页面加载完成！');
+    </script>
+</body>
+</html>
