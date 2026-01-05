@@ -1,74 +1,521 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Designer & Developer | Parallax Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* 🎨 CSS 区域 - 控制所有视觉效果 */
+        /* ===== 基础样式 ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
         body {
-            background: #f0f0f0; /* 背景色 */
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        /* ===== 视差容器 ===== */
+        .parallax-section {
+            position: relative;
+            height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 100vh; /* 占满整个屏幕高度 */
-            font-family: Arial;
+            justify-content: center;
+            overflow: hidden;
         }
         
-        .magic-box {
-            background: white;
-            padding: 40px;
-            border-radius: 20px; /* 圆角 */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* 阴影 */
+        /* 真正的视差层 */
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 110%;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* 这是视差的关键！ */
+            z-index: -2;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+        
+        /* ===== 各区域特定样式 ===== */
+        /* 区域1: 英雄区 */
+        #hero {
             text-align: center;
-            /* 试试取消下面这行的注释，看有什么变化 */
-            /* transform: rotate(5deg); */
+            color: white;
         }
         
-        .big-button {
+        #hero .parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1558655146-364adaf1fcc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
             background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
             color: white;
             padding: 15px 40px;
-            border: none;
             border-radius: 50px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: 0.3s;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
             margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         
-        /* 🎭 当鼠标悬停在按钮上时的效果 */
-        .big-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* 区域2: 关于我 */
+        #about {
+            background: #f8f9fa;
+            min-height: 100vh;
+            padding: 100px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, #FF6B6B, #4ECDC4);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 50px;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .skills {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .skill-item {
+            margin-bottom: 25px;
+        }
+        
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .skill-bar {
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .skill-level {
+            height: 100%;
+            background: linear-gradient(to right, #FF6B6B, #4ECDC4);
+            border-radius: 5px;
+        }
+        
+        /* 区域3: 作品集 */
+        #portfolio {
+            background: white;
+            min-height: 100vh;
+            padding: 100px 20px;
+        }
+        
+        #portfolio .parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .portfolio-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .portfolio-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .portfolio-info {
+            padding: 25px;
+        }
+        
+        /* 区域4: 联系我 */
+        #contact {
+            background: #2c3e50;
+            min-height: 100vh;
+            padding: 100px 20px;
+            color: white;
+            text-align: center;
+        }
+        
+        #contact .parallax-bg {
+            background-image: url('https://images.unsplash.com/photo-1516542076529-1ea3854896f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        }
+        
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .contact-item {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-5px);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #4ECDC4;
+        }
+        
+        /* ===== 动画 ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* ===== 响应式设计 ===== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tagline {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* 滚动进度指示器 */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #FF6B6B, #4ECDC4);
+            width: 0%;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <!-- 📦 HTML 区域 - 页面结构 -->
-    <div class="magic-box">
-        <h1>我的魔法跳转页 ✨</h1>
-        <p>这是一个可以随心所欲修改的页面</p>
-        
-        <!-- 这个按钮就是你跳转的核心 -->
-        <button class="big-button" onclick="redirectToDrive()">
-            前往 Google Drive
-        </button>
-        
-        <p style="margin-top: 20px; color: #666; font-size: 14px;">
-            <i>试试把鼠标移到按钮上！</i>
-        </p>
+    <!-- 滚动进度条 -->
+    <div class="scroll-progress">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
     
-    <!-- ⚡ JavaScript 区域 - 添加行为 -->
-    <script>
-        function redirectToDrive() {
-            // 这就是跳转的"魔法咒语"
-            window.location.href = 'https://drive.google.com/your-link-here';
+    <!-- 区域1: 英雄区 -->
+    <section id="hero" class="parallax-section">
+        <div class="parallax-bg"></div>
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1>Designer × Developer</h1>
+            <p class="tagline">Creating beautiful experiences with code & creativity</p>
+            <p>I transform ideas into interactive digital experiences. With a designer's eye and a developer's mind, I build websites that not only look stunning but work seamlessly.</p>
+            <a href="#portfolio" class="btn">View My Work</a>
+        </div>
+    </section>
+    
+    <!-- 区域2: 关于我 -->
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Hi, I'm a Designer & Frontend Developer</h3>
+                    <p>Based in Malaysia, I specialize in creating visually compelling and functional websites. My background in graphic design gives me a unique advantage in understanding aesthetics, user experience, and visual communication.</p>
+                    <p>Currently expanding my skills in JavaScript and frontend development while working as a graphic designer. I believe in continuous learning and using technology to solve real problems.</p>
+                    <p>When I'm not coding or designing, you'll find me working out, exploring new AI tools, or building side projects.</p>
+                </div>
+                <div class="skills">
+                    <h3>My Skills</h3>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Graphic Design</span>
+                            <span>95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>HTML/CSS</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>JavaScript</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>UI/UX Design</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-level" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 区域3: 作品集 -->
+    <section id="portfolio" class="parallax-section">
+        <div class="parallax-bg"></div>
+        <div class="overlay"></div>
+        <div class="container">
+            <h2 class="section-title" style="color: white;">My Projects</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="portfolio-info">
+                        <h3>Interactive Portfolio</h3>
+                        <p>A responsive portfolio website with smooth animations and interactive elements.</p>
+                        <a href="#" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="portfolio-info">
+                        <h3>E-commerce UI Design</h3>
+                        <p>Complete UI design for an online store with product filtering and cart functionality.</p>
+                        <a href="#" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">View Project</a>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
+                    <div class="portfolio-info">
+                        <h3>Data Dashboard</h3>
+                        <p>Analytics dashboard with interactive charts and real-time data visualization.</p>
+                        <a href="https://github.com/yourusername/drive-portal" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 区域4: 联系我 -->
+    <section id="contact" class="parallax-section">
+        <div class="parallax-bg"></div>
+        <div class="overlay"></div>
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <p>I'm always open to discussing new opportunities, creative projects, or just chatting about design and tech.</p>
             
-            // 💡 打开F12控制台，看看点击时这里会打印什么
-            console.log('按钮被点击了！正在跳转到Google Drive...');
-        }
+            <div class="contact-links">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>your.email@example.com</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub</h3>
+                    <p>github.com/yourusername</p>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </div>
+                    <h3>LinkedIn</h3>
+                    <p>linkedin.com/in/yourprofile</p>
+                </div>
+            </div>
+            
+            <p style="margin-top: 50px; opacity: 0.8;">
+                &copy; 2024 Designer × Developer. All rights reserved.<br>
+                Made with 💻 and 🎨 in Malaysia.
+            </p>
+        </div>
+    </section>
+    
+    <script>
+        // 视差滚动效果增强
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxSections = document.querySelectorAll('.parallax-bg');
+            
+            // 更新进度条
+            const winHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            const trackLength = docHeight - winHeight;
+            const progress = Math.floor(scrolled / trackLength * 100);
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            // 为每个视差层应用不同速度
+            parallaxSections.forEach((section, index) => {
+                const speed = 0.5 + (index * 0.1);
+                section.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
+            });
+            
+            // 添加滚动动画
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if(sectionTop < windowHeight * 0.75) {
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }
+            });
+        });
         
-        // 页面加载完时在控制台打招呼
-        console.log('🎉 魔法页面加载完成！');
+        // 平滑滚动导航
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // 控制台欢迎信息（你的招牌技能）
+        console.log('🚀 Parallax Portfolio Loaded!');
+        console.log('👨‍💻 Designed & Developed by You');
+        console.log('📍 Malaysia | 🎨 Designer × Developer');
+        
+        // 页面加载动画
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.8s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 300);
+        });
     </script>
 </body>
 </html>
