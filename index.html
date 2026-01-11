@@ -105,28 +105,13 @@
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
 
-        .badge-back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 16px;
+        .backtotop-badge {
             background: linear-gradient(135deg, #7a6ff0, #5a4fcf);
-            color: white;
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 6px 20px rgba(122, 111, 240, 0.4);
+            color: #ffffff;
             font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1000;
+            padding: 10px 16px;
+            border-radius: 20px;
+            font-weight: bold;
         }   
         
         /* 区域2: 关于我 */
@@ -541,11 +526,12 @@
                 document.body.style.opacity = '1';
             }, 300);
         });
+        const backToTopController = initBackToTopBadge(backtotop-badge, 500);
+        backToTopController.show();
+        backToTopController.scrollToTop();
+        backToTopController.updateThreshold(200);
+        });
+        
     </script>
-    <!-- 放在 <body> 结束标签前 -->
-    <button id="badgeBackToTop" class="badge-back-to-top" aria-label="回到顶部">
-        <span class="badge-arrow">↑</span>
-        <span class="badge-text">Top</span>
-    </button>
 </body>
 </html>
