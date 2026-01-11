@@ -526,7 +526,48 @@
                 document.body.style.opacity = '1';
             }, 300);
         });
-     
+     function addSimpleBackToTop() {
+         const btn = document.createElement('button');
+         btn.id = 'simpleBackToTop';
+         btn.innerHTML = '↑';
+         btn.title = '回到顶部';
+         btn.style.cssText = `
+             position: fixed;
+             bottom: 30px;
+             right: 30px;
+             width: 50px;
+             height: 50px;
+             border-radius: 50%;
+             background: linear-gradient(135deg, #7a6ff0, #5a4fcf);
+             color: white;
+             border: none;
+             font-size: 24px;
+             cursor: pointer;
+             opacity: 0;
+             visibility: hidden;
+             transition: all 0.3s;
+             z-index: 9999;
+             box-shadow: 0 4px 15px rgba(122, 111, 240, 0.3);
+         `;
+         document.body.appendChild(btn);
+         window.addEventListener('scroll', function() {
+             if (window.scrollY > 300) {
+                 btn.style.opacity = '1';
+                 btn.style.visibility = 'visible';
+             } else {
+                 btn.style.opacity = '0';
+                 btn.style.visibility = 'hidden';
+             }
+         });
+         btn.addEventListener('click', function() {
+             window.scrollTo({
+                 top: 0,
+                 behavior: 'smooth'
+             });   
+         }); 
+         console.log('✅ 极简Back to Top按钮已添加');
+      }
+      document.addEventListener('DOMContentLoaded', addSimpleBackToTop);  
     </script>
 </body>
 </html>
