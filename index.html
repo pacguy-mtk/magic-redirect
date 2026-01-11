@@ -541,16 +541,11 @@
                 document.body.style.opacity = '1';
             }, 300);
         });
-         const button = document.getElementById('badge-back-to-top');
-         window.addEventListener('scroll', () => {
-         button.classList.toggle('show', window.scrollY > 300);
-        });
-         button.addEventListener('click', () => {
-         window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    
-         console.log('🎯 Badge Back-to-Top 按钮已就绪');
-        });
     </script>
+    <!-- 放在 <body> 结束标签前 -->
+    <button id="badgeBackToTop" class="badge-back-to-top" aria-label="回到顶部">
+        <span class="badge-arrow">↑</span>
+        <span class="badge-text">Top</span>
+    </button>
 </body>
 </html>
