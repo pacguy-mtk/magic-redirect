@@ -307,16 +307,25 @@
             transition: width 0.3s ease;
         }
         @media (max-width: 768px) {
-            .container, .project-card, .parallax-scene {
-                overflow-x: hidden !important;
-                max-width: 100vw !important;
+            .portfolio-grid {
+                grid-template-columns: 1fr !important;
+                gap: 20px !important;
+                margin-top: 30px
+                padding: 0 15px
+            .portfolio-item {
+                max-width: 100% !important;
+                margin: 0 auto !important;
             }
-            * {
-                box-sizing: border-box;
+            .portfolio-img {
+                height: 180px !important;
             }
-            body {
-                padding-bottom: 40px !important;
+            .portfolio-info {
+                padding: 20px 15px !important;
             }
+            #portfolio {
+                padding: 60px 15px !important;
+            }
+
         }
     </style>
 </head>
