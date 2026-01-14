@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- 元数据和外部资源 -->
     <link rel="icon" href="https://raw.githubusercontent.com/pacguy-mtk/magic-redirect/refs/heads/main/ico-01.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Designer & Developer | Parallax Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* ===== 基础样式 ===== */
+        /* ==================== 基础样式 ==================== */
         * {
             margin: 0;
             padding: 0;
@@ -22,7 +24,7 @@
             overflow-x: hidden;
         }
         
-        /* ===== 视差容器 ===== */
+        /* ==================== 视差容器样式 ==================== */
         .parallax-section {
             position: relative;
             height: 100vh;
@@ -32,7 +34,6 @@
             overflow: hidden;
         }
         
-        /* 真正的视差层 */
         .parallax-bg {
             position: absolute;
             top: 0;
@@ -41,7 +42,7 @@
             height: 100%;
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* 这是视差的关键！ */
+            background-attachment: fixed;
             z-index: -2;
         }
         
@@ -55,8 +56,7 @@
             z-index: -1;
         }
         
-        /* ===== 各区域特定样式 ===== */
-        /* 区域1: 英雄区 */
+        /* ==================== 区域1: 英雄区 ==================== */
         #hero {
             text-align: center;
             color: white;
@@ -104,8 +104,8 @@
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
-
-        /* 区域2: 关于我 */
+        
+        /* ==================== 区域2: 关于我 ==================== */
         #about {
             background: #f8f9fa;
             min-height: 100vh;
@@ -175,7 +175,7 @@
             border-radius: 5px;
         }
         
-        /* 区域3: 作品集 */
+        /* ==================== 区域3: 作品集 ==================== */
         #portfolio {
             background: white;
             min-height: 100vh;
@@ -216,7 +216,7 @@
             padding: 25px;
         }
         
-        /* 区域4: 联系我 */
+        /* ==================== 区域4: 联系我 ==================== */
         #contact {
             background: #2c3e50;
             min-height: 100vh;
@@ -257,7 +257,7 @@
             color: #4ECDC4;
         }
         
-        /* ===== 动画 ===== */
+        /* ==================== 动画 ==================== */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -269,7 +269,25 @@
             }
         }
         
-        /* ===== 响应式设计 ===== */
+        /* ==================== 滚动进度指示器 ==================== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #FF6B6B, #4ECDC4);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        /* ==================== 响应式设计 ==================== */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -288,26 +306,9 @@
                 align-items: center;
             }
         }
-        
-        /* 滚动进度指示器 */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: transparent;
-            z-index: 1000;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(to right, #FF6B6B, #4ECDC4);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
     </style>
 </head>
+
 <body>
     <!-- 滚动进度条 -->
     <div class="scroll-progress">
@@ -454,6 +455,7 @@
         </div>
     </section>
     
+    <!-- JavaScript代码 -->
     <script>
         // 视差滚动效果增强
         window.addEventListener('scroll', function() {
@@ -503,7 +505,7 @@
             });
         });
         
-        // 控制台欢迎信息（你的招牌技能）
+        // 控制台欢迎信息
         console.log('🚀 Parallax Portfolio Loaded!');
         console.log('👨‍💻 Designed & Developed by You');
         console.log('📍 Malaysia | 🎨 Designer × Developer');
@@ -517,64 +519,72 @@
                 document.body.style.opacity = '1';
             }, 300);
         });
-     function addSimpleBackToTop() {
-         const btn = document.createElement('button');
-         btn.id = 'simpleBackToTop';
-         btn.innerHTML = `
-         <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
-          <path d="M11.3 7.7l-5 5c-.4.4-.4 1 0 1.4.4.4 1 .4 1.4 0l3.3-3.3V19c0 .6.4 1 1 1s1-.4 1-1v-8.2l3.3 3.3c.2.2.4.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4l-5-5c-.4-.4-1-.4-1.4 0z"/>
-         </svg>`;
-         btn.title = '回到顶部';
-         btn.style.cssText = `
-             position: fixed;
-             bottom: 30px;
-             right: 30px;
-             width: 50px;
-             height: 50px;
-             border-radius: 50%;
-             background: linear-gradient(to right, #FF6B6B, #4ECDC4);
-             color: white;
-             border: none;
-             font-size: 28px;
-             font-weight: bold;
-             cursor: pointer;
-             opacity: 0;
-             visibility: hidden;
-             transition: all 0.3s;
-             z-index: 9999;
-             box-shadow: 0 4px 15px rgba(122, 111, 240, 0.3);
-         `;
-         document.body.appendChild(btn);
-    }
-    function debugLayoutIssues() {
-        console.log('🔍 布局调试信息:');
-        document.querySelectorAll('.parallax-section').forEach((section, i) => {
-            const rect = section.getBoundingClientRect();
-            const styles = window.getComputedStyle(section);
-            console.log(`区域 ${i+1}:`, {
-                '高度': rect.height + 'px',
-                '视口内可见': rect.top >= 0 && rect.bottom <= window.innerHeight,
-                'overflow属性': styles.overflow,
-                '是否有滚动条': section.scrollHeight > section.clientHeight
-            });        
+        
+        // 添加回到顶部按钮函数
+        function addSimpleBackToTop() {
+            const btn = document.createElement('button');
+            btn.id = 'simpleBackToTop';
+            btn.innerHTML = `
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="white">
+                <path d="M11.3 7.7l-5 5c-.4.4-.4 1 0 1.4.4.4 1 .4 1.4 0l3.3-3.3V19c0 .6.4 1 1 1s1-.4 1-1v-8.2l3.3 3.3c.2.2.4.3.7.3s.5-.1.7-.3c.4-.4.4-1 0-1.4l-5-5c-.4-.4-1-.4-1.4 0z"/>
+            </svg>`;
+            btn.title = '回到顶部';
+            btn.style.cssText = `
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background: linear-gradient(to right, #FF6B6B, #4ECDC4);
+                color: white;
+                border: none;
+                font-size: 28px;
+                font-weight: bold;
+                cursor: pointer;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s;
+                z-index: 9999;
+                box-shadow: 0 4px 15px rgba(122, 111, 240, 0.3);
+            `;
+            document.body.appendChild(btn);
+        }
+        
+        // 布局调试函数
+        function debugLayoutIssues() {
+            console.log('🔍 布局调试信息:');
+            document.querySelectorAll('.parallax-section').forEach((section, i) => {
+                const rect = section.getBoundingClientRect();
+                const styles = window.getComputedStyle(section);
+                console.log(`区域 ${i+1}:`, {
+                    '高度': rect.height + 'px',
+                    '视口内可见': rect.top >= 0 && rect.bottom <= window.innerHeight,
+                    'overflow属性': styles.overflow,
+                    '是否有滚动条': section.scrollHeight > section.clientHeight
+                });        
+            });
+            document.querySelectorAll('.parallax-bg').forEach((bg, i) => {
+                const img = new Image();
+                img.src = window.getComputedStyle(bg).backgroundImage.slice(5, -2);
+                img.onload = () => console.log(`背景图 ${i+1}: 加载成功`);
+                img.onerror = () => console.error(`背景图 ${i+1}: 加载失败`);
+            });
+        }
+        
+        // 页面加载完成后执行
+        window.addEventListener('load', function() {
+            setTimeout(debugLayoutIssues, 1000);
+            window.addEventListener('resize', function() {
+                console.log('窗口大小改变:', window.innerWidth, 'x', window.innerHeight);
+            });
         });
-        document.querySelectorAll('.parallax-bg').forEach((bg, i) => {
-            const img = new Image();
-            img.src = window.getComputedStyle(bg).backgroundImage.slice(5, -2);
-            img.onload = () => console.log(`背景图 ${i+1}: 加载成功`);
-            img.onerror = () => console.error(`背景图 ${i+1}: 加载失败`);
-        });
-    }
-    window.addEventListener('load', function() {
-        setTimeout(debugLayoutIssues, 1000);
-        window.addEventListener('resize', function() {
-            console.log('窗口大小改变:', window.innerWidth, 'x', window.innerHeight);
-        });
-    });
 
-      document.addEventListener('DOMContentLoaded', addSimpleBackToTop);  
+        // 添加回到顶部按钮
+        document.addEventListener('DOMContentLoaded', addSimpleBackToTop);  
     </script>
 </body>
+
 <footer style="text-align: center; padding: 20px; color: #666;">
     💪 今日进度：成功识别了一个需要回退的复杂问题。决策力+1。
 </footer>
