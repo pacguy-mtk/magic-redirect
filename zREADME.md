@@ -1,4 +1,4 @@
-Jan 14, 2026
+Jan 14, 2026 - BOTH WEB n MOBILE
 Rearrange html. Write again with DeepSeek.
 
 🎯 这个版本的主要改进：
