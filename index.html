@@ -545,33 +545,7 @@
              box-shadow: 0 4px 15px rgba(122, 111, 240, 0.3);
          `;
          document.body.appendChild(btn);
-         
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 300) {
-            btn.style.opacity = '1';
-            btn.style.visibility = 'visible';
-        } else {
-            btn.style.opacity = '0';
-            btn.style.visibility = 'hidden';
-        }
-    });
-    btn.addEventListener('click', function() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });   
-    }); 
-    console.log('✅ 极简Back to Top按钮已添加');
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const parallaxSections = document.querySelectorAll('.parallax-bg');
-
-    parallaxSections.forEach((section, index) => {
-        const speed = 0.5 + (index * 0.1);
-        const yPos = -(scrolled * speed * 0.5); /* 调整为更自然的速度 */
-        section.style.transform = `translateY(${yPos}px)`;
-        });
-    });
+     }
 
       document.addEventListener('DOMContentLoaded', addSimpleBackToTop);  
     </script>
