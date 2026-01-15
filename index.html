@@ -1,858 +1,866 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <link rel="icon" href="https://raw.githubusercontent.com/pacguy-mtk/magic-redirect/refs/heads/main/ico-01.png" type="image/png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Designer & Developer | Parallax Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* ==================== 基础重置 ==================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-            overflow-x: hidden;
-            width: 100%;
-        }
-        
-        /* ==================== 通用容器 ==================== */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #0F2027;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
-            margin: 15px auto;
-            border-radius: 2px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background: linear-gradient(45deg, #0F2027, #203A43);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
-        
-        /* ==================== 改进的视差系统 ==================== */
-        .parallax-container {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: visible;
-        }
-        
-        .parallax-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120%; /* 稍微增加高度防止切割 */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            z-index: -1;
-        }
-        
-        /* 使用CSS变量控制视差速度 */
-        .parallax-background.slow {
-            transform: translateY(calc(var(--scroll-pos) * 0.3));
-        }
-        
-        .parallax-background.medium {
-            transform: translateY(calc(var(--scroll-pos) * 0.5));
-        }
-        
-        .parallax-background.fast {
-            transform: translateY(calc(var(--scroll-pos) * 0.7));
-        }
-        
-        .parallax-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 0;
-        }
-        
-        .parallax-content {
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            max-width: 1200px;
-            padding: 40px 20px;
-        }
-        
-        /* ==================== 英雄区域 ==================== */
-        #hero {
-            color: white;
-            text-align: center;
-        }
-        
-        .hero-background {
-            background-image: url('https://images.unsplash.com/photo-1718241905696-cb34c2c07bed?auto=format&fit=crop&w=1920&q=80');
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px;
-            animation: fadeInUp 1s ease-out;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-        }
-        
-        .tagline {
-            font-size: 1.5rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-        
-        /* ==================== 关于区域 ==================== */
-        #about {
-            background: #f8f9fa;
-            padding: 100px 0;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .about-content {
-            display: flex;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 50px;
-        }
-        
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .about-text h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #0F2027;
-        }
-        
-        .about-text p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            color: #555;
-        }
-        
-        .skills {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .skill-item {
-            margin-bottom: 25px;
-        }
-        
-        .skill-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-        }
-        
-        .skill-bar {
-            height: 10px;
-            background: #e0e0e0;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        
-        .skill-level {
-            height: 100%;
-            background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
-            border-radius: 5px;
-        }
-        /* ==================== 作品集区域 ==================== */
-        #portfolio {
-            padding: 100px 0;
-            background: white;
-            position: relative;
-        }
-        
-        .portfolio-background {
-            background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1920&q=80');
-        }
-        
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .portfolio-item {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .portfolio-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .portfolio-img {
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .portfolio-info {
-            padding: 30px;
-        }
-        
-        .portfolio-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #0F2027;
-        }
-        
-        .portfolio-info p {
-            color: #666;
-            margin-bottom: 20px;
-        }
-        
-        /* ==================== 联系区域 ==================== */
-        #contact {
-            padding: 100px 0;
-            color: white;
-            text-align: center;
-            position: relative;
-        }
-        
-        .contact-background {
-            background-image: url('https://images.unsplash.com/photo-1694878982234-58d53e0d1655?auto=format&fit=crop&w=1920&q=80');
-        }
-        
-        #contact .section-title {
-            color: white;
-        }
-        
-        #contact .section-title::after {
-            background: linear-gradient(to right, #4ECDC4, #44A08D);
-        }
-        
-        .contact-intro {
-            max-width: 600px;
-            margin: 0 auto 50px;
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 50px;
-        }
-        
-        .contact-item {
-            background: rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 15px;
-            min-width: 200px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .contact-item:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-5px);
-            border-color: rgba(255,255,255,0.3);
-        }
-        
-        .contact-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #4ECDC4;
-        }
-        
-        .contact-item h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-        
-        .contact-item p {
-            opacity: 0.9;
-        }
-        
-        /* ==================== 页脚 ==================== */
-        .footer {
-            background: rgba(15, 32, 39, 0.95);
-            color: #ccc;
-            text-align: center;
-            padding: 40px 20px;
-        }
-        
-        .footer-text {
-            opacity: 0.8;
-            font-size: 0.95rem;
-            line-height: 1.8;
-        }
-        
-        /* ==================== 进度条 ==================== */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: transparent;
-            z-index: 10000;
-        }
-        
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(to right, #FF6B6B, #4ECDC4);
-            width: 0%;
-            transition: width 0.1s ease;
-        }
-        
-        /* ==================== 回到顶部按钮 ==================== */
-        #backToTop {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: linear-gradient(to right, #FF6B6B, #4ECDC4);
-            color: white;
-            border: none;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
-        
-        #backToTop.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        #backToTop:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-        }
-        
-        /* ==================== 动画 ==================== */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* ==================== 响应式设计 ==================== */
-        @media (max-width: 992px) {
-            h1 {
-                font-size: 2.8rem;
-            }
-            
-            .tagline {
-                font-size: 1.3rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .about-content {
-                flex-direction: column;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .tagline {
-                font-size: 1.1rem;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .hero-content {
-                padding: 20px;
-            }
-            
-            .parallax-container {
-                padding: 60px 0;
-            }
-            
-            #about, #portfolio, #contact {
-                padding: 60px 0;
-            }
-            
-            .contact-links {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .contact-item {
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-            }
-            
-            .btn {
-                padding: 12px 30px;
-                font-size: 1rem;
-            }
-        }
-    </style>
-</head>
+      /* ==================== 基础重置 ==================== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-<body>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f8f9fa;
+        overflow-x: hidden;
+        width: 100%;
+      }
+
+      /* ==================== 通用容器 ==================== */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #0F2027;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+        margin: 15px auto;
+        border-radius: 2px;
+      }
+
+      .btn {
+        display: inline-block;
+        background: linear-gradient(45deg, #0F2027, #203A43);
+        color: white;
+        padding: 15px 40px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      /* ==================== 改进的视差系统 ==================== */
+      .parallax-container {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: visible;
+      }
+
+      .parallax-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 120%;
+        /* 稍微增加高度防止切割 */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1;
+      }
+
+      /* 使用CSS变量控制视差速度 */
+      .parallax-background.slow {
+        transform: translateY(calc(var(--scroll-pos) * 0.3));
+      }
+
+      .parallax-background.medium {
+        transform: translateY(calc(var(--scroll-pos) * 0.5));
+      }
+
+      .parallax-background.fast {
+        transform: translateY(calc(var(--scroll-pos) * 0.7));
+      }
+
+      .parallax-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 0;
+      }
+
+      .parallax-content {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 1200px;
+        padding: 40px 20px;
+      }
+
+      /* ==================== 英雄区域 ==================== */
+      #hero {
+        color: white;
+        text-align: center;
+      }
+
+      .hero-background {
+        background-image: url('https://images.unsplash.com/photo-1718241905696-cb34c2c07bed?auto=format&fit=crop&w=1920&q=80');
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+        animation: fadeInUp 1s ease-out;
+      }
+
+      h1 {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .tagline {
+        font-size: 1.5rem;
+        font-weight: 300;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      /* ==================== 关于区域 ==================== */
+      #about {
+        background: #f8f9fa;
+        padding: 100px 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      .about-content {
+        display: flex;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 50px;
+      }
+
+      .about-text {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .about-text h3 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        color: #0F2027;
+      }
+
+      .about-text p {
+        margin-bottom: 1.5rem;
+        font-size: 1.1rem;
+        color: #555;
+      }
+
+      .skills {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .skill-item {
+        margin-bottom: 25px;
+      }
+
+      .skill-name {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .skill-bar {
+        height: 10px;
+        background: #e0e0e0;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .skill-level {
+        height: 100%;
+        background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+        border-radius: 5px;
+      }
+
+      /* ==================== 作品集区域 ==================== */
+      #portfolio {
+        padding: 100px 0;
+        background: white;
+        position: relative;
+      }
+
+      .portfolio-background {
+        background-image: url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1920&q=80');
+      }
+
+      .portfolio-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .portfolio-item {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .portfolio-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .portfolio-img {
+        height: 250px;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .portfolio-info {
+        padding: 30px;
+      }
+
+      .portfolio-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: #0F2027;
+      }
+
+      .portfolio-info p {
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      /* ==================== 联系区域 ==================== */
+      #contact {
+        padding: 100px 0;
+        color: white;
+        text-align: center;
+        position: relative;
+      }
+
+      .contact-background {
+        background-image: url('https://images.unsplash.com/photo-1694878982234-58d53e0d1655?auto=format&fit=crop&w=1920&q=80');
+      }
+
+      #contact .section-title {
+        color: white;
+      }
+
+      #contact .section-title::after {
+        background: linear-gradient(to right, #4ECDC4, #44A08D);
+      }
+
+      .contact-intro {
+        max-width: 600px;
+        margin: 0 auto 50px;
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .contact-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .contact-item {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 15px;
+        min-width: 200px;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .contact-item:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-5px);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .contact-icon {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #4ECDC4;
+      }
+
+      .contact-item h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+      }
+
+      .contact-item p {
+        opacity: 0.9;
+      }
+
+      /* ==================== 页脚 ==================== */
+      .footer {
+        background: rgba(15, 32, 39, 0.95);
+        color: #ccc;
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .footer-text {
+        opacity: 0.8;
+        font-size: 0.95rem;
+        line-height: 1.8;
+      }
+
+      /* ==================== 进度条 ==================== */
+      .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: transparent;
+        z-index: 10000;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(to right, #FF6B6B, #4ECDC4);
+        width: 0%;
+        transition: width 0.1s ease;
+      }
+
+      /* ==================== 回到顶部按钮 ==================== */
+      #backToTop {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: linear-gradient(to right, #FF6B6B, #4ECDC4);
+        color: white;
+        border: none;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+      }
+
+      #backToTop.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      #backToTop:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+      }
+
+      /* ==================== 动画 ==================== */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-50px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(50px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      .animate-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      .animate-on-scroll.animated {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ==================== 响应式设计 ==================== */
+      @media (max-width: 992px) {
+        h1 {
+          font-size: 2.8rem;
+        }
+
+        .tagline {
+          font-size: 1.3rem;
+        }
+
+        .section-title {
+          font-size: 2.2rem;
+        }
+
+        .about-content {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.2rem;
+        }
+
+        .tagline {
+          font-size: 1.1rem;
+        }
+
+        .section-title {
+          font-size: 1.8rem;
+        }
+
+        .hero-content {
+          padding: 20px;
+        }
+
+        .parallax-container {
+          padding: 60px 0;
+        }
+
+        #about,
+        #portfolio,
+        #contact {
+          padding: 60px 0;
+        }
+
+        .contact-links {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .contact-item {
+          width: 100%;
+          max-width: 300px;
+        }
+
+        .portfolio-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        h1 {
+          font-size: 1.8rem;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+
+        .btn {
+          padding: 12px 30px;
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
     <!-- 滚动进度条 -->
     <div class="scroll-progress">
-        <div class="progress-bar" id="progressBar"></div>
+      <div class="progress-bar" id="progressBar"></div>
     </div>
-    
     <!-- 回到顶部按钮 -->
     <button id="backToTop">
-        <i class="fas fa-chevron-up"></i>
+      <i class="fas fa-chevron-up"></i>
     </button>
-    
     <!-- 区域1: 英雄区 -->
     <section id="hero" class="parallax-container">
-        <div class="parallax-background hero-background slow"></div>
-        <div class="parallax-overlay"></div>
-        <div class="parallax-content">
-            <div class="hero-content">
-                <h1>Designer × Developer</h1>
-                <p class="tagline">Creating beautiful experiences with code & creativity</p>
-                <p>I transform ideas into interactive digital experiences. With a designer's eye and a developer's mind, I build websites that not only look stunning but work seamlessly.</p>
-                <a href="#portfolio" class="btn">View My Work</a>
-            </div>
+      <div class="parallax-background hero-background slow"></div>
+      <div class="parallax-overlay"></div>
+      <div class="parallax-content">
+        <div class="hero-content">
+          <h1>Designer × Developer</h1>
+          <p class="tagline">Creating beautiful experiences with code & creativity</p>
+          <p>I transform ideas into interactive digital experiences. With a designer's eye and a developer's mind, I build websites that not only look stunning but work seamlessly.</p>
+          <a href="#portfolio" class="btn">View My Work</a>
         </div>
+      </div>
     </section>
-    
     <!-- 区域2: 关于我 -->
     <section id="about">
-        <div class="container">
-            <h2 class="section-title animate-on-scroll">About Me</h2>
-            <div class="about-content">
-                <div class="about-text animate-on-scroll">
-                    <h3>Hi, I'm a Designer & Frontend Developer</h3>
-                    <p>Based in Malaysia, I specialize in creating visually compelling and functional websites. My background in graphic design gives me a unique advantage in understanding aesthetics, user experience, and visual communication.</p>
-                    <p>Currently expanding my skills in JavaScript and frontend development while working as a graphic designer. I believe in continuous learning and using technology to solve real problems.</p>
-                    <p>When I'm not coding or designing, you'll find me working out, exploring new AI tools, or building side projects.</p>
-                </div>
-                <div class="skills animate-on-scroll">
-                    <h3>My Skills</h3>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>Graphic Design</span>
-                            <span>95%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 95%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>HTML/CSS</span>
-                            <span>85%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>JavaScript</span>
-                            <span>70%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 70%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-item">
-                        <div class="skill-name">
-                            <span>UI/UX Design</span>
-                            <span>80%</span>
-                        </div>
-                        <div class="skill-bar">
-                            <div class="skill-level" style="width: 80%"></div>
-                        </div>
-                    </div>
-                </div>
+      <div class="container">
+        <h2 class="section-title animate-on-scroll">About Me</h2>
+        <div class="about-content">
+          <div class="about-text animate-on-scroll">
+            <h3>Hi, I'm a Designer & Frontend Developer</h3>
+            <p>Based in Malaysia, I specialize in creating visually compelling and functional websites. My background in graphic design gives me a unique advantage in understanding aesthetics, user experience, and visual communication.</p>
+            <p>Currently expanding my skills in JavaScript and frontend development while working as a graphic designer. I believe in continuous learning and using technology to solve real problems.</p>
+            <p>When I'm not coding or designing, you'll find me working out, exploring new AI tools, or building side projects.</p>
+          </div>
+          <div class="skills animate-on-scroll">
+            <h3>My Skills</h3>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>Graphic Design</span>
+                <span>95%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 95%"></div>
+              </div>
             </div>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>HTML/CSS</span>
+                <span>85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 85%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>JavaScript</span>
+                <span>70%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 70%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-name">
+                <span>UI/UX Design</span>
+                <span>80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-level" style="width: 80%"></div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
-    
     <!-- 区域3: 作品集 -->
     <section id="portfolio" class="parallax-container">
-        <div class="parallax-background portfolio-background medium"></div>
-        <div class="parallax-overlay"></div>
-        <div class="parallax-content">
-            <div class="container">
-                <h2 class="section-title" style="color: white;">My Projects</h2>
-                <div class="portfolio-grid">
-                    <div class="portfolio-item animate-on-scroll">
-                        <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=600&q=80');"></div>
-                        <div class="portfolio-info">
-                            <h3>Interactive Portfolio</h3>
-                            <p>A responsive portfolio website with smooth animations and interactive elements.</p>
-                            <a href="#" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">View Project</a>
-                        </div>
-                    </div>
-                    <div class="portfolio-item animate-on-scroll">
-                        <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80');"></div>
-                        <div class="portfolio-info">
-                            <h3>E-commerce UI Design</h3>
-                            <p>Complete UI design for an online store with product filtering and cart functionality.</p>
-                            <a href="#" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">View Project</a>
-                        </div>
-                    </div>
-                    <div class="portfolio-item animate-on-scroll">
-                        <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80');"></div>
-                        <div class="portfolio-info">
-                            <h3>Data Dashboard</h3>
-                            <p>Analytics dashboard with interactive charts and real-time data visualization.</p>
-                            <a href="https://github.com/yourusername/drive-portal" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">GitHub</a>
-                        </div>
-                    </div>
-                </div>
+      <div class="parallax-background portfolio-background medium"></div>
+      <div class="parallax-overlay"></div>
+      <div class="parallax-content">
+        <div class="container">
+          <h2 class="section-title" style="color: white;">My Projects</h2>
+          <div class="portfolio-grid">
+            <div class="portfolio-item animate-on-scroll">
+              <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=600&q=80');"></div>
+              <div class="portfolio-info">
+                <h3>Interactive Portfolio</h3>
+                <p>A responsive portfolio website with smooth animations and interactive elements.</p>
+                <a href="#" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">View Project</a>
+              </div>
             </div>
+            <div class="portfolio-item animate-on-scroll">
+              <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80');"></div>
+              <div class="portfolio-info">
+                <h3>E-commerce UI Design</h3>
+                <p>Complete UI design for an online store with product filtering and cart functionality.</p>
+                <a href="#" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">View Project</a>
+              </div>
+            </div>
+            <div class="portfolio-item animate-on-scroll">
+              <div class="portfolio-img" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80');"></div>
+              <div class="portfolio-info">
+                <h3>Data Dashboard</h3>
+                <p>Analytics dashboard with interactive charts and real-time data visualization.</p>
+                <a href="https://github.com/yourusername/drive-portal" class="btn" style="padding: 10px 25px; font-size: 0.9rem;">GitHub</a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
-    
     <!-- 区域4: 联系我 -->
     <section id="contact" class="parallax-container">
-        <div class="parallax-background contact-background fast"></div>
-        <div class="parallax-overlay"></div>
-        <div class="parallax-content">
-            <div class="container">
-                <h2 class="section-title">Let's Connect</h2>
-                <p class="contact-intro">I'm always open to discussing new opportunities, creative projects, or just chatting about design and tech.</p>
-                
-                <div class="contact-links">
-                    <div class="contact-item animate-on-scroll">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <h3>Email</h3>
-                        <p>your.email@example.com</p>
-                    </div>
-                    <div class="contact-item animate-on-scroll">
-                        <div class="contact-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <h3>GitHub</h3>
-                        <p>github.com/yourusername</p>
-                    </div>
-                    <div class="contact-item animate-on-scroll">
-                        <div class="contact-icon">
-                            <i class="fab fa-linkedin"></i>
-                        </div>
-                        <h3>LinkedIn</h3>
-                        <p>linkedin.com/in/yourprofile</p>
-                    </div>
-                </div>
+      <div class="parallax-background contact-background fast"></div>
+      <div class="parallax-overlay"></div>
+      <div class="parallax-content">
+        <div class="container">
+          <h2 class="section-title">Let's Connect</h2>
+          <p class="contact-intro">I'm always open to discussing new opportunities, creative projects, or just chatting about design and tech.</p>
+          <div class="contact-links">
+            <div class="contact-item animate-on-scroll">
+              <div class="contact-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <h3>Email</h3>
+              <p>your.email@example.com</p>
             </div>
+            <div class="contact-item animate-on-scroll">
+              <div class="contact-icon">
+                <i class="fab fa-github"></i>
+              </div>
+              <h3>GitHub</h3>
+              <p>github.com/yourusername</p>
+            </div>
+            <div class="contact-item animate-on-scroll">
+              <div class="contact-icon">
+                <i class="fab fa-linkedin"></i>
+              </div>
+              <h3>LinkedIn</h3>
+              <p>linkedin.com/in/yourprofile</p>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
-    
     <!-- 页脚 -->
     <footer class="footer">
-        <div class="container">
-            <p class="footer-text">
-                &copy; 2024 Designer × Developer. All rights reserved.<br>
-                Made with 💻 and 🎨 in Malaysia.
-            </p>
-            <p class="footer-text" style="margin-top: 20px; font-size: 0.85rem;">
-                💪 今日进度：创建了一个稳定可靠的视差滚动网页，告别切割问题！
-            </p>
-        </div>
+      <div class="container">
+        <p class="footer-text"> &copy; 2024 Designer × Developer. All rights reserved. <br> Made with 💻 and 🎨 in Malaysia. </p>
+        <p class="footer-text" style="margin-top: 20px; font-size: 0.85rem;"> 💪 今日进度：创建了一个稳定可靠的视差滚动网页，告别切割问题！ </p>
+      </div>
     </footer>
-    
     <!-- JavaScript -->
     <script>
-        // 页面加载完成后的初始化
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Parallax Portfolio Loaded!');
-            console.log('👨‍💻 Designed & Developed by You');
-            console.log('📍 Malaysia | 🎨 Designer × Developer');
-            
-            // 页面加载动画
-            document.body.style.opacity = '0';
-            document.body.style.transition = 'opacity 0.8s ease';
-            
-            setTimeout(() => {
-                document.body.style.opacity = '1';
-            }, 300);
-            
-            // 初始化滚动动画
-            initScrollAnimations();
-        });
-        
-        // 平滑滚动导航
+      // 页面加载完成后的初始化
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('🚀 Parallax Portfolio Loaded!');
+        console.log('👨‍💻 Designed & Developed by You');
+        console.log('📍 Malaysia | 🎨 Designer × Developer');
+        // 页面加载动画
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.8s ease';
+        setTimeout(() => {
+          document.body.style.opacity = '1';
+        }, 300);
+        // 初始化所有功能
+        initSmoothScroll();
+        initParallax();
+        initScrollAnimations();
+        initBackToTop();
+        initImageErrorHandling();
+        // 重置技能条初始状态
+        initSkillBars();
+      });
+      // ==================== 功能模块 1：平滑滚动 ====================
+      function initSmoothScroll() {
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if(targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if(targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // 滚动事件监听
-        let ticking = false;
-        let lastScrollY = 0;
-        
-        window.addEventListener('scroll', function() {
-            lastScrollY = window.scrollY;
-            
-            if (!ticking) {
-                window.requestAnimationFrame(function() {
-                    updateParallax(lastScrollY);
-                    updateProgressBar(lastScrollY);
-                    updateBackToTop(lastScrollY);
-                    ticking = false;
-                });
-                ticking = true;
+          anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+              });
             }
+          });
         });
-        
-        // 视差效果 - 使用CSS变量
-        function updateParallax(scrollY) {
-            // 设置CSS变量供CSS使用
-            document.documentElement.style.setProperty('--scroll-pos', `${scrollY * 0.01}px`);
-            
-            // 也可以使用JS直接控制（备用方案）
-            const parallaxBackgrounds = document.querySelectorAll('.parallax-background');
-            parallaxBackgrounds.forEach(bg => {
-                const speed = bg.classList.contains('fast') ? 0.7 : 
-                             bg.classList.contains('medium') ? 0.5 : 0.3;
-                const yPos = scrollY * speed;
-                // 这里CSS变量已经在CSS中使用了，所以这行可以注释掉
-                // bg.style.transform = `translateY(${yPos * 0.1}px)`;
-            });
+      }
+      // ==================== 功能模块 2：视差效果 ====================
+      let ticking = false;
+      let lastScrollY = 0;
+
+      function initParallax() {
+        window.addEventListener('scroll', handleScroll);
+      }
+
+      function handleScroll() {
+        lastScrollY = window.scrollY;
+        if (!ticking) {
+          window.requestAnimationFrame(function() {
+            updateParallax(lastScrollY);
+            updateProgressBar(lastScrollY);
+            ticking = false;
+          });
+          ticking = true;
         }
-        
-        // 更新进度条
-        function updateProgressBar(scrollY) {
-            const winHeight = window.innerHeight;
-            const docHeight = document.documentElement.scrollHeight;
-            const trackLength = docHeight - winHeight;
-            const progress = (scrollY / trackLength) * 100;
-            
-            document.getElementById('progressBar').style.width = progress + '%';
+      }
+
+      function updateParallax(scrollY) {
+        document.documentElement.style.setProperty('--scroll-pos', `${scrollY * 0.01}px`);
+      }
+
+      function updateProgressBar(scrollY) {
+        const winHeight = window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight;
+        const trackLength = docHeight - winHeight;
+        if (trackLength > 0) {
+          const progress = (scrollY / trackLength) * 100;
+          document.getElementById('progressBar').style.width = progress + '%';
         }
-        
-        // 回到顶部按钮
-        function updateBackToTop(scrollY) {
-            const backToTopBtn = document.getElementById('backToTop');
-            
-            if (scrollY > 300) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
-            }
-            
-            backToTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
+      }
+      // ==================== 功能模块 3：滚动动画 ====================
+      let skillsAnimated = false;
+
+      function initScrollAnimations() {
+        // 等待页面完全加载
+        if (document.readyState === 'complete') {
+          setupScrollAnimation();
+        } else {
+          window.addEventListener('load', setupScrollAnimation);
         }
-        
-        // 滚动动画
-        let hasAnimatedSkills = false;
-        function initScrollAnimations() {
-            const animatedElements = document.querySelectorAll('.animate-on-scroll');
-            
-            function checkAnimation() {
-                animatedElements.forEach(element => {
-                    const elementTop = element.getBoundingClientRect().top;
-                    const windowHeight = window.innerHeight;
-                    
-                    if (elementTop < windowHeight * 0.85) {
-                        element.classList.add('animated');
-                        
-                        // 技能条动画
-                        if (element.classList.contains('skills') || element.closest('.skills')) {
-                            && !hasAnimatedSkills) {
-                    
-                                hasAnimatedSkills = true;
-                                if (elementTop > 0) {
-                                    animateSkillBars();
-                                } else {
-                                    setTimeout(animateSkillBars, 800);
-                                }
-                        }
-                    }
-                });
-            }
-            
-            // 初始检查 - 添加延迟
-            setTimeout(checkAnimation, 500);
-            
-            // 滚动时检查
-            window.addEventListener('scroll', checkAnimation);
-        }
-        
-        // 技能条动画
-        function animateSkillBars() {
-            const skillBars = document.querySelectorAll('.skill-level');
-            
-            skillBars.forEach(bar => {
-                // 确保只动画一次
-                if (!bar.dataset.animated) {
-                    const width = bar.style.width;
-                    bar.style.width = '0%';
-                    
-                    setTimeout(() => {
-                        bar.style.width = width;
-                        bar.dataset.animated = 'true';
-                    }, 100);
-                }
-            });
-        }
-        
-        // 窗口大小改变时重新计算
-        window.addEventListener('resize', function() {
-            // 重新触发滚动以更新视差
-            updateParallax(window.scrollY);
+      }
+
+      function setupScrollAnimation() {
+        const animatedElements = document.querySelectorAll('.animate-on-scroll');
+        // 初始检查（延迟执行，避免闪烁）
+        setTimeout(() => {
+          checkAnimation(animatedElements);
+        }, 800);
+        // 滚动时检查
+        window.addEventListener('scroll', () => {
+          checkAnimation(animatedElements);
         });
-        
-        // 图片加载错误处理
-        document.querySelectorAll('img, .portfolio-img, .parallax-background').forEach(element => {
-            if (element.tagName === 'IMG') {
-                element.onerror = function() {
-                    console.warn('图片加载失败:', this.src);
-                    this.style.opacity = '0.5';
-                };
+      }
+
+      function checkAnimation(elements) {
+        const windowHeight = window.innerHeight;
+        elements.forEach(element => {
+          const elementTop = element.getBoundingClientRect().top;
+          if (elementTop < windowHeight * 0.85) {
+            element.classList.add('animated');
+            // 检查是否是技能区域
+            if (!skillsAnimated && (element.classList.contains('skills') || element.closest('.skills'))) {
+              skillsAnimated = true;
+              // 确保技能条已经初始化
+              setTimeout(() => {
+                animateSkillBars();
+              }, 300);
             }
+          }
         });
+      }
+      // ==================== 功能模块 4：技能条动画 ====================
+      function initSkillBars() {
+        // 保存所有技能条的原始宽度
+        const skillBars = document.querySelectorAll('.skill-level');
+        skillBars.forEach(bar => {
+          // 获取并保存目标宽度
+          const targetWidth = bar.style.width || '0%';
+          bar.setAttribute('data-target-width', targetWidth);
+          // 立即设置为0%（不显示）
+          bar.style.width = '0%';
+          bar.style.opacity = '0.8';
+        });
+      }
+
+      function animateSkillBars() {
+        const skillBars = document.querySelectorAll('.skill-level');
+        skillBars.forEach((bar, index) => {
+          // 确保只动画一次
+          if (!bar.dataset.animated) {
+            const targetWidth = bar.getAttribute('data-target-width');
+            // 错开每个技能条的动画时间
+            setTimeout(() => {
+              bar.style.transition = 'width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1)';
+              bar.style.width = targetWidth;
+              bar.dataset.animated = 'true';
+            }, index * 200); // 每个技能条间隔200ms
+          }
+        });
+      }
+      // ==================== 功能模块 5：回到顶部按钮 ====================
+      function initBackToTop() {
+        const backToTopBtn = document.getElementById('backToTop');
+        if (!backToTopBtn) return;
+        // 滚动时显示/隐藏按钮
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) {
+            backToTopBtn.classList.add('show');
+          } else {
+            backToTopBtn.classList.remove('show');
+          }
+        });
+        // 点击事件
+        backToTopBtn.addEventListener('click', function() {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+        // 初始状态检查
+        if (window.scrollY > 300) {
+          backToTopBtn.classList.add('show');
+        }
+      }
+      // ==================== 功能模块 6：其他工具函数 ====================
+      function initImageErrorHandling() {
+        document.querySelectorAll('img').forEach(img => {
+          img.onerror = function() {
+            console.warn('图片加载失败:', this.src);
+            this.style.opacity = '0.5';
+          };
+        });
+      }
+      // 窗口大小改变时重新初始化
+      window.addEventListener('resize', function() {
+        // 简单的防抖处理
+        clearTimeout(this.resizeTimer);
+        this.resizeTimer = setTimeout(() => {
+          updateParallax(window.scrollY);
+        }, 250);
+      });
     </script>
-</body>
+  </body>
 </html>
