@@ -799,14 +799,15 @@
                         
                         // 技能条动画
                         if (element.classList.contains('skills') || element.closest('.skills')) {
-                            animateSkillBars();
+                            if (document.readyState === 'complete') {
+                                setTimeout(animateSkillBars, 300);
                         }
                     }
                 });
             }
             
-            // 初始检查
-            checkAnimation();
+            // 初始检查 - 添加延迟
+            setTimeout(checkAnimation, 500);
             
             // 滚动时检查
             window.addEventListener('scroll', checkAnimation);
