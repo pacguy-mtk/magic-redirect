@@ -786,6 +786,7 @@
         }
         
         // 滚动动画
+        let hasAnimatedSkills = false;
         function initScrollAnimations() {
             const animatedElements = document.querySelectorAll('.animate-on-scroll');
             
@@ -799,8 +800,14 @@
                         
                         // 技能条动画
                         if (element.classList.contains('skills') || element.closest('.skills')) {
-                            if (document.readyState === 'complete') {
-                                setTimeout(animateSkillBars, 300);
+                            && !hasAnimatedSkills) {
+                    
+                                hasAnimatedSkills = true;
+                                if (elementTop > 0) {
+                                    animateSkillBars();
+                                } else {
+                                    setTimeout(animateSkillBars, 800);
+                                }
                         }
                     }
                 });
