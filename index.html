@@ -1313,24 +1313,29 @@
     }
 
     async function initPet() {
-      try {
-        const res = await fetch('parallaxsite/pet.json');
-        const petData = await res.json();
-        petSprite = await loadPetSprite('parallaxsite/' + petData.spritesheetPath);
-        renderPetFrame();
-        requestAnimationFrame(petLoop);
-      } catch (e) {
-        console.warn('Pet sprite failed to load:', e);
-        petCanvas.style.display = 'none';
-        const fallback = document.createElement('button');
-        fallback.id = 'hub-chat-bubble';
-        fallback.type = 'button';
-        fallback.setAttribute('aria-label', 'Open Builder Pepe');
-        fallback.innerHTML = '🐸';
-        fallback.style.cssText = 'position:fixed;right:24px;bottom:28px;z-index:100;width:56px;height:56px;border-radius:50%;border:2px solid rgba(66,232,212,0.4);background:rgba(16,24,33,0.9);font-size:28px;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 20px rgba(66,232,212,0.25);';
-        fallback.addEventListener('click', toggleChat);
-        document.body.appendChild(fallback);
+      const paths = ['pet/pet.json', 'parallaxsite/pet.json', 'pet.json'];
+      for (const p of paths) {
+        try {
+          const res = await fetch(p);
+          if (!res.ok) continue;
+          const petData = await res.json();
+          const base = p.replace(/pet\.json$/, '');
+          petSprite = await loadPetSprite(base + petData.spritesheetPath);
+          renderPetFrame();
+          requestAnimationFrame(petLoop);
+          return;
+        } catch (e) { continue; }
       }
+      console.warn('Pet sprite failed to load from all paths');
+      petCanvas.style.display = 'none';
+      const fallback = document.createElement('button');
+      fallback.id = 'hub-chat-bubble';
+      fallback.type = 'button';
+      fallback.setAttribute('aria-label', 'Open Builder Pepe');
+      fallback.innerHTML = '🐸';
+      fallback.style.cssText = 'position:fixed;right:24px;bottom:28px;z-index:100;width:56px;height:56px;border-radius:50%;border:2px solid rgba(66,232,212,0.4);background:rgba(16,24,33,0.9);font-size:28px;cursor:pointer;display:grid;place-items:center;box-shadow:0 4px 20px rgba(66,232,212,0.25);';
+      fallback.addEventListener('click', toggleChat);
+      document.body.appendChild(fallback);
     }
 
     initPet();
